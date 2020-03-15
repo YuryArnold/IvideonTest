@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->connectButton->setState(false);
     ui->linePort->setStyleSheet(lineEditStyle);
     ui->lineIp->setStyleSheet(lineEditStyle);
-    ui->linePort->setText("2331");
-    ui->lineIp->setText("127.0.0.1");
+    ui->linePort->setText("9991");
+    ui->lineIp->setText("emb2.extcam.xyz");
 
     connect(m_commandsPtr,&PclCommands::setStateSignal,
             ui->light,&LightWidget::setOnOff);
@@ -34,11 +34,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->connectButton,&ConnectButton::clicked,
             this,[this](bool _connect){
-        if(!checkForCorrectInput()){
-            QMessageBox::warning(this,tr("Error in input"),tr("Check for correct Input in ip or port!"));
-            ui->connectButton->setState(false);
-            return;
-        }
+        //if(!checkForCorrectInput()){
+        //    QMessageBox::warning(this,tr("Error in input"),tr("Check for correct Input in ip or port!"));
+        //    ui->connectButton->setState(false);
+        //    return;
+        //}
 
         if(_connect)
             m_tcpClientPtr->connectToHost(ui->lineIp->text(),

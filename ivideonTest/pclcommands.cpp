@@ -21,6 +21,9 @@ void PclCommands::offCommand(QByteArray& _message)
 
 void PclCommands::colorCommand(QByteArray& _message)
 {
-    QRgb color = fromBytesToBE(_message);
+    QRgb color = qRgb(int{_message[0]},
+                      int{_message[1]},
+                      int{_message[2]});
+
     emit setColorSignal(color);
 }

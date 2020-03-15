@@ -16,6 +16,7 @@ LightWidget(QWidget* parent) :
 
 LightWidget::~LightWidget()
 {
+    m_OnOff = false;
 }
 
 double LightWidget::diameter() const

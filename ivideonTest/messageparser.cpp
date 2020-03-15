@@ -24,10 +24,11 @@ void MessageParser::consumeData(const QByteArray &_message)
         auto subPart = message.mid(ind,2);
         auto len = fromBytesToBE(subPart);
         ind += m_lenOfInfMes;
-        if(len > (bytesLeft - m_lenOfInfPlusId) )
-            break;
-
         auto data = message.mid(ind,len);
+        if(data.length() < len){
+            ind -=m_lenOfInfPlusId;
+            break;
+        }
         ind+=len;
         bytesLeft -= (m_lenOfInfPlusId + len);
         if(m_messageCommands.contains(code))
@@ -35,9 +36,8 @@ void MessageParser::consumeData(const QByteArray &_message)
         else {
             qDebug()<<"Unknown command with type "<<code<<" has arrived.";
         }
-
     }
-    m_unaccomplishedBuffer.push_back(message.mid(ind));
+    m_unaccomplishedBuffer.push_back(message.mid((ind)));
 }
 
 void MessageParser::registerCommand(quint32 _id, std::function<void (QByteArray &)> _command)
